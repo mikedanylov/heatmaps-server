@@ -15,6 +15,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+var Event = require('./db').Event;
+var Map = require('./db').Map;
+
 app.use('/', routes);
 app.use('/api', api);
 
@@ -28,7 +31,6 @@ app.use(function(req, res, next) {
 // error handlers
 
 // development error handler
-// will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -41,7 +43,6 @@ if (app.get('env') === 'development') {
 }
 
 // production error handler
-// no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
     res.send({
@@ -50,6 +51,5 @@ app.use(function(err, req, res, next) {
         message: err.message
     });
 });
-
 
 module.exports = app;
