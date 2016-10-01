@@ -3,6 +3,7 @@
  */
 
 var uri;
+
 if (app.get('env') === 'development') {
     uri = 'mongodb://localhost:27017/heatmaps-server';
 } else {
