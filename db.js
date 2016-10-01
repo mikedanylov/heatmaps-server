@@ -21,19 +21,22 @@ var eventSchema = mongoose.Schema({
     view: {
         url: String
     },
-    click: {
-        x: Number,
-        y: Number
-    },
+    type: String,
+    events: [
+        {
+            x: Number,
+            y: Number,
+            element: {
+                selector: String
+            },
+            time: {
+                timestamp: Date
+            }
+        }
+    ],
     resolution: {
         width: Number,
         height: Number
-    },
-    element: {
-        selector: String
-    },
-    time: {
-        timestamp: Date
     }
 });
 
