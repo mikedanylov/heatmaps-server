@@ -10,6 +10,9 @@ router.get('/', function(req, res, next) {
         heatmap_server: {
             path: '/api',
             POST: {
+                view: {
+                    url: 'https://keybar.herokuapp.com/songs'
+                },
                 click: {
                     x: Math.floor(Math.random() * randHeight),
                     y: Math.floor(Math.random() * randWidth)
@@ -26,6 +29,9 @@ router.get('/', function(req, res, next) {
                 }
             },
             GET: {
+                view: {
+                    url: 'https://keybar.herokuapp.com/songs'
+                },
                 platform: 'desktop|tablet|mobile',
                 type: 'click',
                 time: {
