@@ -1,9 +1,12 @@
+/**
+ * Created by mikedanylov on 10/1/16.
+ */
+
 var express = require('express');
 var router = express.Router();
 
-/* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+    res.send({ status: 'success' });
 });
 
 module.exports = router;

@@ -1,9 +1,40 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    var randWidth = Math.floor(Math.random() * 1920);
+    var randHeight = Math.floor(Math.random() * 1080);
+
+    res.send({
+        status: 'success',
+        heatmap_server: {
+            path: '/api',
+            POST: {
+                click: {
+                    x: Math.floor(Math.random() * randHeight),
+                    y: Math.floor(Math.random() * randWidth)
+                },
+                resolution: {
+                    width: randWidth,
+                    height: randHeight
+                },
+                element: {
+                    selector: 'body > div.container .very-impornant-button'
+                },
+                time: {
+                    timestamp: new Date().getTime()
+                }
+            },
+            GET: {
+                platform: 'desktop|tablet|mobile',
+                type: 'click',
+                time: {
+                    start: new Date().getTime() - 1234567,
+                    end: new Date().getTime()
+                }
+            }
+        }
+    });
 });
 
 module.exports = router;
