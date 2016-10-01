@@ -2,7 +2,13 @@
  * Created by mikedanylov on 10/1/16.
  */
 
-var uri = 'mongodb://localhost:27017/heatmaps-server';
+var uri;
+if (app.get('env') === 'development') {
+    uri = 'mongodb://localhost:27017/heatmaps-server';
+} else {
+    uri = process.ENV.MONGOLAB_URI;
+}
+
 var mongoose = require('mongoose');
 
 mongoose.connect(uri);
