@@ -8,62 +8,67 @@ router.get('/', function(req, res, next) {
 
     res.send({
         status: 'success',
-        heatmap_server: {
-            path: '/events',
-            POST: {
-                view: {
-                    url: 'https://keybar.herokuapp.com/songs'
-                },
-                type: 'click',
-                events: [
-                    {
-                        x: Math.floor(Math.random() * randHeight),
-                        y: Math.floor(Math.random() * randWidth),
-                        element: {
-                            selector: 'body > div.container .very-impornant-button'
-                        },
-                        time: {
-                            timestamp: timestamp + 1111
-                        }
+        heatmap_server: [
+            {
+                path: '/events',
+                POST: {
+                    view: {
+                        url: 'https://keybar.herokuapp.com/songs'
                     },
-                    {
-                        x: Math.floor(Math.random() * randHeight),
-                        y: Math.floor(Math.random() * randWidth),
-                        element: {
-                            selector: 'body > div.container .header'
+                    type: 'click',
+                    events: [
+                        {
+                            x: Math.floor(Math.random() * randHeight),
+                            y: Math.floor(Math.random() * randWidth),
+                            element: {
+                                selector: 'body > div.container .very-impornant-button'
+                            },
+                            time: {
+                                timestamp: timestamp + 1111
+                            }
                         },
-                        time: {
-                            timestamp: timestamp + 2222
-                        }
-                    },
-                    {
-                        x: Math.floor(Math.random() * randHeight),
-                        y: Math.floor(Math.random() * randWidth),
-                        element: {
-                            selector: 'body > div.footer a.aboutus'
+                        {
+                            x: Math.floor(Math.random() * randHeight),
+                            y: Math.floor(Math.random() * randWidth),
+                            element: {
+                                selector: 'body > div.container .header'
+                            },
+                            time: {
+                                timestamp: timestamp + 2222
+                            }
                         },
-                        time: {
-                            timestamp: timestamp + 3333
+                        {
+                            x: Math.floor(Math.random() * randHeight),
+                            y: Math.floor(Math.random() * randWidth),
+                            element: {
+                                selector: 'body > div.footer a.aboutus'
+                            },
+                            time: {
+                                timestamp: timestamp + 3333
+                            }
                         }
+                    ],
+                    resolution: {
+                        width: randWidth,
+                        height: randHeight
                     }
-                ],
-                resolution: {
-                    width: randWidth,
-                    height: randHeight
                 }
             },
-            GET: {
-                view: {
-                    url: 'https://keybar.herokuapp.com/songs'
-                },
-                platform: 'desktop|tablet|mobile',
-                type: 'click',
-                time: {
-                    start: timestamp - 1234567,
-                    end: timestamp + 1234567
+            {
+                path: '/data',
+                POST: {
+                    view: {
+                        url: 'https://keybar.herokuapp.com/songs'
+                    },
+                    platform: 'desktop|tablet|mobile',
+                    type: 'click',
+                    time: {
+                        start: timestamp - 1234567,
+                        end: timestamp + 1234567
+                    }
                 }
             }
-        }
+        ]
     });
 });
 
