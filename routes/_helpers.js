@@ -24,7 +24,7 @@ function getPosition (coordinate, max) {
     platform = getPlatform(max);
     factor = platform.width / max;
 
-    return coordinate * factor;
+    return parseInt(coordinate * factor);
 }
 
 /**

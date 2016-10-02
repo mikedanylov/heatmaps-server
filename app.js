@@ -3,7 +3,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var api = require('./routes/api');
+var events = require('./routes/events');
 var createError = require('./error').createError;
 
 var app = express();
@@ -16,7 +16,7 @@ var Event = require('./db').Event;
 var Map = require('./db').Map;
 
 app.use('/', routes);
-app.use('/api', api);
+app.use('/events', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
