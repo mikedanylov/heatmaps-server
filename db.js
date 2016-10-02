@@ -19,38 +19,21 @@ db.once('open', function (resp) {
 });
 
 var eventSchema = mongoose.Schema({
-    view: {
-        url: String
-    },
+    url: String,
     type: String,
-    events: [
-        {
-            x: Number,
-            y: Number,
-            element: {
-                selector: String
-            },
-            time: {
-                timestamp: Date
-            }
-        }
-    ],
-    resolution: {
-        width: Number,
-        height: Number
-    }
+    x: Number,
+    y: Number,
+    selector: String,
+    timestamp: Date,
+    platform: String
 });
 
 var mapSchema = mongoose.Schema({
-    view: {
-        url: String
-    },
+    url: String,
     platform: String,
     type: String,
-    time: {
-        start: Date,
-        end: Date
-    }
+    time_start: Date,
+    time_end: Date
 });
 
 exports.Event = mongoose.model('Event', eventSchema);
