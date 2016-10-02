@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     res.send({
         status: 'success',
         heatmap_server: {
-            path: '/api',
+            path: '/api/events',
             POST: {
                 view: {
                     url: 'https://keybar.herokuapp.com/songs'
