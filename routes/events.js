@@ -4,7 +4,8 @@
 
 var router = require('express').Router();
 
-var helpers = require('./_helpers');
+var helper = new require('./_helpers');
+var helpers = new helper.Helper();
 var createError = require('../error').createError;
 var Event = require('../db').Event;
 
