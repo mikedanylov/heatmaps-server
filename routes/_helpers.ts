@@ -2,19 +2,15 @@
  * Created by mikedanylov on 10/2/16.
  */
 
-export class Helper {
+export class Screen {
 
     constructor () {
-
     }
 
     /**
-     * @desc                        Recalculate coordinate and map to standard resolution
-     * @param   {number} coordinate
-     * @param   {number} max
-     * @returns {number}            New coordinate relative to standard screen width
+     * @desc    Recalculate coordinate and map to standard resolution
      */
-    public getPosition(coordinate: number, max: number): number {
+    public static getPosition(coordinate: number, max: number): number {
     let platform: Platform;
     let factor: number;
 
@@ -29,28 +25,14 @@ export class Helper {
 }
 
     /**
-     * @desc                        Get standard platform for current screen width
-     * @param   {number}    width   Current screen width
-     * @returns {object}            Platform object
+     * @desc    Get standard platform for current screen width
      */
-    public getPlatform(width: number): Platform {
-        let result: any;
+    public static getPlatform(width: number): Platform {
+        let result: Platform;
         let platforms = [
             new Platform('mobile', 320),
             new Platform('tablet', 600),
             new Platform('desktop', 1024)
-            // {
-            //     name    : 'mobile',
-            //     width   : 320
-            // },
-            // {
-            //     name    : 'tablet',
-            //     width   : 600
-            // },
-            // {
-            //     name    : 'desktop',
-            //     width   : 1024
-            // }
         ];
 
         if (!width) {

@@ -2,16 +2,13 @@
  * Created by mikedanylov on 10/2/16.
  */
 "use strict";
-var Helper = (function () {
-    function Helper() {
+var Screen = (function () {
+    function Screen() {
     }
     /**
-     * @desc                        Recalculate coordinate and map to standard resolution
-     * @param   {number} coordinate
-     * @param   {number} max
-     * @returns {number}            New coordinate relative to standard screen width
+     * @desc    Recalculate coordinate and map to standard resolution
      */
-    Helper.prototype.getPosition = function (coordinate, max) {
+    Screen.getPosition = function (coordinate, max) {
         var platform;
         var factor;
         if (coordinate < 0 || !max) {
@@ -22,11 +19,9 @@ var Helper = (function () {
         return Math.floor(coordinate * factor);
     };
     /**
-     * @desc                        Get standard platform for current screen width
-     * @param   {number}    width   Current screen width
-     * @returns {object}            Platform object
+     * @desc    Get standard platform for current screen width
      */
-    Helper.prototype.getPlatform = function (width) {
+    Screen.getPlatform = function (width) {
         var result;
         var platforms = [
             new Platform('mobile', 320),
@@ -44,9 +39,9 @@ var Helper = (function () {
         });
         return result;
     };
-    return Helper;
+    return Screen;
 }());
-exports.Helper = Helper;
+exports.Screen = Screen;
 var Platform = (function () {
     function Platform(name, width) {
         this._name = name;

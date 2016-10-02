@@ -3,9 +3,7 @@
  */
 
 var router = require('express').Router();
-
-var helper = new require('./_helpers');
-var helpers = new helper.Helper();
+var screen = require('./_helpers').Screen;
 var createError = require('../error').createError;
 var Event = require('../db').Event;
 
@@ -39,16 +37,16 @@ router.post('/', function(req, res, next) {
 
     // create a new event entry in db for each event object from request
     params.events.forEach(function (event) {
-        var platform = helpers.getPlatform(params.resolution.width);
+        var platform = screen.getPlatform(params.resolution.width);
 
         events.push({
-            url: params.view.url,
-            type: params.type,
-            x: helpers.getPosition(event.x, params.resolution.width),
-            y: parseInt(event.y),
-            selector: event.element.selector,
-            timestamp: event.time.timestamp,
-            platform: platform.name
+            url         : params.view.url,
+            type        : params.type,
+            x           : screen.getPosition(event.x, params.resolution.width),
+            y           : parseInt(event.y),
+            selector    : event.element.selector,
+            timestamp   : event.time.timestamp,
+            platform    : platform.name
         });
     });
 
