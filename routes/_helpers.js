@@ -24,16 +24,16 @@ var Screen = (function () {
     Screen.getPlatform = function (width) {
         var result;
         var platforms = [
-            new Platform('mobile', 320),
-            new Platform('tablet', 600),
-            new Platform('desktop', 1024)
+            new Platform('desktop', 1920),
+            new Platform('tablet', 1024),
+            new Platform('mobile', 600)
         ];
         if (!width) {
             throw new Error('api.getPlatform: No params');
         }
         result = platforms[0];
         platforms.forEach(function (platform) {
-            if (platform.width < width) {
+            if (platform.width > width) {
                 result = platform;
             }
         });

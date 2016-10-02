@@ -7,32 +7,27 @@ var screen = require('./_helpers').Screen;
 var createError = require('../error').createError;
 var Event = require('../db').Event;
 
-router.get('/', function(req, res, next) {
-    res.send(createError({
-        status  : 404,
-        message : 'Not Found'
-    }, 'Use POST /events'));
-});
-
 router.post('/', function(req, res, next) {
     var events = [];
     var params;
+    var err = new Error();
+
+    err.status = 400;
+    err.message = 'Bad Request';
 
     // simple validation in order to save db from garbage
     if (!req || !req.body) {
-        res.send(createError({
-            status  : 400,
-            message : 'Bad Request'
-        }, 'Use POST /events'));
+        res.status(err.status);
+        res.send(createError(err, 'POST /events: Request body is empty'));
+        return;
     }
 
     params = req.body;
     if (!params.view.url || !params.type || !params.resolution ||
         !params.events || !params.events.length) {
-        res.send(createError({
-            status  : 400,
-            message : 'Bad Request'
-        }, 'POST /events: Parameters are not correct'));
+        res.status(err.status);
+        res.send(createError(err, 'POST /events: Parameters are not correct'));
+        return;
     }
 
     // create a new event entry in db for each event object from request
@@ -45,19 +40,17 @@ router.post('/', function(req, res, next) {
             x           : screen.getPosition(event.x, params.resolution.width),
             y           : parseInt(event.y),
             selector    : event.element.selector,
-            timestamp   : event.time.timestamp,
+            timestamp   : new Date(new Date(event.time.timestamp).toISOString()),
             platform    : platform.name
         });
     });
 
-
     Event.collection.insert(events, function (err, objects) {
         if (err) {
             console.log('POST /events: Failed to save event', err);
-            res.send(createError({
-                status  : 400,
-                message : 'Bad Request'
-            }, 'POST /events: Failed to save to db'));
+            res.status(err.status);
+            res.send(createError(err, 'POST /events: Failed to save to db'));
+            return;
         }
 
         console.log('POST /events: Saved ' + events.length + ' new Events', objects);

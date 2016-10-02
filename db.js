@@ -15,17 +15,17 @@ db.on('error', function (err) {
 });
 
 db.once('open', function (resp) {
-    console.log('Connected to mongodb');
+    console.log('Connected to mongodb, uri: ' + uri);
 });
 
 var eventSchema = mongoose.Schema({
-    url: String,
-    type: String,
-    x: Number,
-    y: Number,
-    selector: String,
-    timestamp: Date,
-    platform: String
+    url         : String,
+    type        : String,
+    x           : Number,
+    y           : Number,
+    selector    : String,
+    timestamp   : Date,
+    platform    : String
 });
 
 var mapSchema = mongoose.Schema({

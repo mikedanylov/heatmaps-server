@@ -30,9 +30,9 @@ export class Screen {
     public static getPlatform(width: number): Platform {
         let result: Platform;
         let platforms = [
-            new Platform('mobile', 320),
-            new Platform('tablet', 600),
-            new Platform('desktop', 1024)
+            new Platform('desktop', 1920),
+            new Platform('tablet', 1024),
+            new Platform('mobile', 600)
         ];
 
         if (!width) {
@@ -41,7 +41,7 @@ export class Screen {
 
         result = platforms[0];
         platforms.forEach(function (platform) {
-            if (platform.width < width) {
+            if (platform.width > width) {
                 result = platform;
             }
         });
