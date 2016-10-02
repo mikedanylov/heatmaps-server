@@ -1,8 +1,9 @@
 /**
  * Created by mikedanylov on 10/1/16.
  */
+var config = require('./config'); 
 
-var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/heatmaps-server';
+var uri = process.env.MONGOLAB_URI || config.mongoUri;
 
 var mongoose = require('mongoose');
 
