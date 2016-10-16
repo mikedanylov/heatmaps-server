@@ -2,7 +2,7 @@
  * Created by mikedanylov on 10/1/16.
  */
 
-var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/heatmaps-server';
+var uri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/heatmaps-server-db';
 
 var mongoose = require('mongoose');
 
@@ -19,22 +19,17 @@ db.once('open', function (resp) {
 });
 
 var eventSchema = mongoose.Schema({
-    url         : String,
+    viewUrl     : String,
     type        : String,
-    x           : Number,
-    y           : Number,
+    origX       : Number,
+    origY       : Number,
+    scaledX     : Number,
+    scaledY     : Number,
     selector    : String,
     timestamp   : Date,
+    width       : Number,
+    height      : Number,
     platform    : String
 });
 
-var mapSchema = mongoose.Schema({
-    url: String,
-    platform: String,
-    type: String,
-    time_start: Date,
-    time_end: Date
-});
-
 exports.Event = mongoose.model('Event', eventSchema);
-exports.Map = mongoose.model('Map', mapSchema);

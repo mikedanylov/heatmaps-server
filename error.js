@@ -10,7 +10,7 @@ function createError (err, info) {
     }
 
     errObj = {
-        status: 'error',
+        success : false,
         error: err
     };
 
