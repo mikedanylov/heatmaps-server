@@ -12,60 +12,37 @@ router.get('/', function(req, res, next) {
             {
                 path: '/events',
                 POST: {
-                    view: {
-                        url: 'https://keybar.herokuapp.com/songs'
-                    },
-                    type: 'click',
-                    events: [
+                    url     : 'https://keybar.herokuapp.com/songs',
+                    type    : 'click',
+                    width   : randWidth,
+                    height  : randHeight,
+                    events  : [
                         {
-                            x: Math.floor(Math.random() * randHeight),
-                            y: Math.floor(Math.random() * randWidth),
-                            element: {
-                                selector: 'body > div.container .very-impornant-button'
-                            },
-                            time: {
-                                timestamp: timestamp + 1111
-                            }
+                            x           : Math.floor(Math.random() * randHeight),
+                            y           : Math.floor(Math.random() * randWidth),
+                            selector    : 'body > div.container .very-impornant-button',
+                            timestamp   : timestamp + 1111
                         },
                         {
-                            x: Math.floor(Math.random() * randHeight),
-                            y: Math.floor(Math.random() * randWidth),
-                            element: {
-                                selector: 'body > div.container .header'
-                            },
-                            time: {
-                                timestamp: timestamp + 2222
-                            }
+                            x           : Math.floor(Math.random() * randHeight),
+                            y           : Math.floor(Math.random() * randWidth),
+                            selector    : 'body > div.container .header',
+                            timestamp   : timestamp + 2222
                         },
                         {
-                            x: Math.floor(Math.random() * randHeight),
-                            y: Math.floor(Math.random() * randWidth),
-                            element: {
-                                selector: 'body > div.footer a.aboutus'
-                            },
-                            time: {
-                                timestamp: timestamp + 3333
-                            }
+                            x           : Math.floor(Math.random() * randHeight),
+                            y           : Math.floor(Math.random() * randWidth),
+                            selector    : 'body > div.footer a.aboutus',
+                            timestamp   : timestamp + 3333
                         }
-                    ],
-                    resolution: {
-                        width: randWidth,
-                        height: randHeight
-                    }
-                }
-            },
-            {
-                path: '/data',
-                POST: {
-                    view: {
-                        url: 'https://keybar.herokuapp.com/songs'
-                    },
-                    platform: 'desktop|tablet|mobile',
-                    type: 'click',
-                    time: {
-                        start: timestamp - 1234567,
-                        end: timestamp + 1234567
-                    }
+                    ]
+                },
+                GET: {
+                    url         : 'https://keybar.herokuapp.com/songs',
+                    platform    : 'desktop|tablet|mobile',
+                    type        : 'click',
+                    start       : timestamp - 1234567,
+                    end         : timestamp + 1234567
                 }
             }
         ]

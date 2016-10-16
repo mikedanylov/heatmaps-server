@@ -23,7 +23,8 @@ router.post('/', function(req, res, next) {
     }
 
     params = req.body;
-    if (!params.view || !params.type || !params.events || !params.events.length) {
+    if (!params.view || !params.type || !params.width ||
+        !params.height || !params.events || !params.events.length) {
         res.status(err.status);
         res.send(createError(err, 'POST /events: Parameters are not correct'));
         return;
@@ -31,21 +32,20 @@ router.post('/', function(req, res, next) {
 
     // create a new event entry in db for each event object from request
     params.events.forEach(function (event) {
-        var platform = screen.getPlatform(event.width);
-        var date = parseInt(event.timestamp) || event.timestamp;
+        var platform = screen.getPlatform(params.width);
 
         events.push({
             viewUrl     : params.view,
             type        : params.type,
             origX       : parseInt(event.x), // screen.getPosition(event.x, event.width),
             origY       : parseInt(event.y),
-            scaledX     : screen.getPosition(event.x, event.width),
+            scaledX     : screen.getPosition(event.x, params.width),
             scaledY     : parseInt(event.y),
             selector    : event.selector,
-            timestamp   : new Date(date),
+            timestamp   : new Date(event.timestamp),
             platform    : platform.name,
-            width       : event.width,
-            height      : event.height
+            width       : params.width,
+            height      : params.height
         });
     });
 
