@@ -92,8 +92,16 @@ router.get('/', function(req, res, next) {
         return;
     }
 
-    var startTime = new Date(parseInt(params.start));
-    var endTime = new Date(parseInt(params.end));
+    var startTime;
+    var endTime;
+    if (/^\d{4}\-\d{2}\-\d{2}$/.test(params.start) &&
+        /^\d{4}\-\d{2}\-\d{2}$/.test(params.end)) {
+        startTime = new Date(params.start);
+        endTime = new Date(params.end);
+    } else {
+        startTime = new Date(parseInt(params.start));
+        endTime = new Date(parseInt(params.end));
+    }
 
     query = {
         type        : params.type,
