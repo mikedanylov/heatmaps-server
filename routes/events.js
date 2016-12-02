@@ -35,17 +35,18 @@ router.post('/', function(req, res, next) {
         var platform = screen.getPlatform(params.width);
 
         events.push({
-            viewUrl     : params.view,
-            type        : params.type,
-            origX       : parseInt(event.x), // screen.getPosition(event.x, event.width),
-            origY       : parseInt(event.y),
-            scaledX     : screen.getPosition(event.x, params.width),
-            scaledY     : parseInt(event.y),
-            selector    : event.selector,
-            timestamp   : new Date(event.timestamp),
-            platform    : platform.name,
-            width       : params.width,
-            height      : params.height
+            viewUrl      : params.view,
+            type         : params.type,
+            origX        : parseInt(event.x), // screen.getPosition(event.x, event.width),
+            origY        : parseInt(event.y),
+            scaledX      : screen.getPosition(event.x, params.width),
+            scaledY      : parseInt(event.y),
+            selector     : event.selector,
+            timestamp    : new Date(event.timestamp),
+            platform     : platform.name,
+            width        : params.width,
+            height       : params.height,
+            modifications: params.modifications ? params.modifications : []
         });
     });
 
@@ -103,14 +104,13 @@ router.get('/', function(req, res, next) {
         endTime = new Date(parseInt(params.end));
     }
 
-    query = {
-        type        : params.type,
-        platform    : params.platform,
-        viewUrl     : params.url,
-        $and        : [
-            { timestamp: { $gt: startTime } },
-            { timestamp: { $lt: endTime } }
-        ]
+    queryParams = {
+        type         : params.type,
+        platform     : params.platform,
+        viewUrl      : params.url,
+        startTime    : startTime,
+        endTime      : endTime,
+        modifications: params.modifications
     };
 
     remove = {
@@ -122,8 +122,16 @@ router.get('/', function(req, res, next) {
         width       : 0,
         height      : 0
     };
+    
+    if (!params.modifications) {
+        Event.findEvents(queryParams, remove, responseCb);
+    } else if (!params.modificationsExclusive) {
+        Event.findEventsWithModifications(queryParams, remove, responseCb);
+    } else {
+        Event.findEventsWithModificationsExclusive(queryParams, remove, responseCb);
+    }
 
-    Event.find(query, remove, function (err, objects) {
+    function responseCb (err, objects) {
         if (err) {
             console.log('GET /events: Failed to find Events', err);
             res.status(err.status);
@@ -137,7 +145,7 @@ router.get('/', function(req, res, next) {
             timestamp   : new Date().getTime(),
             events      : objects
         });
-    });
+    }
 });
 
 module.exports = router;
