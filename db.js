@@ -1,7 +1,7 @@
 /**
  * Created by mikedanylov on 10/1/16.
  */
-var config = require('./config'); 
+var config = require('./config');
 
 var uri = process.env.MONGOLAB_URI || config.mongoUri;
 
@@ -31,7 +31,7 @@ var eventSchema = mongoose.Schema({
     width        : Number,
     height       : Number,
     platform     : String,
-    modifications: [Stirng]
+    modifications: [String]
 });
 
 var Event = mongoose.model('Event', eventSchema);
@@ -71,10 +71,10 @@ Event.statics = {
                 { timestamp: { $gt: queryParams.startTime } },
                 { timestamp: { $lt: queryParams.endTime } },
                 {modifications: {$all: queryParams.modifications}},
-                {modifications: {$size: queryParams.modifications.length}}     
+                {modifications: {$size: queryParams.modifications.length}}
             ]
         }, remove).exec(cb);
     }
-}
-exports.Event = Events;
+};
+exports.Event = Event;
 
