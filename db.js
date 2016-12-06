@@ -34,9 +34,9 @@ var eventSchema = mongoose.Schema({
     modifications: [String]
 });
 
-var Event = mongoose.model('Event', eventSchema);
 
-Event.statics.findEvents = function (queryParams, remove, cb) {
+
+eventSchema.statics.findEvents = function (queryParams, remove, cb) {
     return this.find({
         type        : queryParams.type,
         platform    : queryParams.platform,
@@ -48,7 +48,7 @@ Event.statics.findEvents = function (queryParams, remove, cb) {
     }, remove).exec(cb);
 };
 
-Event.statics.findEventsWithModifications = function (queryParams, remove, cb) {
+eventSchema.statics.findEventsWithModifications = function (queryParams, remove, cb) {
     this.find({
         type        : queryParams.type,
         platform    : queryParams.platform,
@@ -61,7 +61,7 @@ Event.statics.findEventsWithModifications = function (queryParams, remove, cb) {
     }, remove).exec(cb);
 };
 
-Event.statics.findEventsWithModificationsExclusive = function (queryParams, remove, cb) {
+eventSchema.statics.findEventsWithModificationsExclusive = function (queryParams, remove, cb) {
     this.find({
         type        : queryParams.type,
         platform    : queryParams.platform,
@@ -74,6 +74,8 @@ Event.statics.findEventsWithModificationsExclusive = function (queryParams, remo
         ]
     }, remove).exec(cb);
 };
+
+var Event = mongoose.model('Event', eventSchema);
 
 exports.Event = Event;
 
