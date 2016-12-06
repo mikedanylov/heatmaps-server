@@ -42,8 +42,8 @@ eventSchema.statics.findEvents = function (queryParams, remove, cb) {
         platform    : queryParams.platform,
         viewUrl     : queryParams.url,
         $and        : [
-            { timestamp: { $gt: startTime } },
-            { timestamp: { $lt: endTime } }
+            { timestamp: { $gt: queryParams.startTime } },
+            { timestamp: { $lt: queryParams.endTime } }
         ]
     }, remove).exec(cb);
 };
@@ -54,8 +54,8 @@ eventSchema.statics.findEventsWithModifications = function (queryParams, remove,
         platform    : queryParams.platform,
         viewUrl     : queryParams.url,
         $and        : [
-            { timestamp: { $gt: startTime } },
-            { timestamp: { $lt: endTime } }
+            { timestamp: { $gt: queryParams.startTime } },
+            { timestamp: { $lt: queryParams.endTime } }
         ],
         modifications: {$all: queryParams.modifications}
     }, remove).exec(cb);
