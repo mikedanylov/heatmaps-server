@@ -107,7 +107,7 @@ router.get('/', function(req, res, next) {
     queryParams = {
         type         : params.type,
         platform     : params.platform,
-        viewUrl      : params.url,
+        url          : params.url,
         startTime    : startTime,
         endTime      : endTime,
         modifications: params.modifications ? JSON.parse(params.modifications) : null
