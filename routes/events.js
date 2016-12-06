@@ -110,7 +110,7 @@ router.get('/', function(req, res, next) {
         viewUrl      : params.url,
         startTime    : startTime,
         endTime      : endTime,
-        modifications: params.modifications
+        modifications: params.modifications ? JSON.parse(params.modifications) : null
     };
 
     remove = {
@@ -122,7 +122,7 @@ router.get('/', function(req, res, next) {
         width       : 0,
         height      : 0
     };
-    
+
     if (!params.modifications) {
         Event.findEvents(queryParams, remove, responseCb);
     } else if (!params.modificationsExclusive) {
