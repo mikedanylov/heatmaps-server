@@ -1,7 +1,7 @@
 /**
  * Created by mikedanylov on 10/1/16.
  */
-var config = require('./config'); 
+var config = require('./config');
 
 var uri = process.env.MONGOLAB_URI || config.mongoUri;
 
@@ -20,17 +20,62 @@ db.once('open', function (resp) {
 });
 
 var eventSchema = mongoose.Schema({
-    viewUrl     : String,
-    type        : String,
-    origX       : Number,
-    origY       : Number,
-    scaledX     : Number,
-    scaledY     : Number,
-    selector    : String,
-    timestamp   : Date,
-    width       : Number,
-    height      : Number,
-    platform    : String
+    viewUrl      : String,
+    type         : String,
+    origX        : Number,
+    origY        : Number,
+    scaledX      : Number,
+    scaledY      : Number,
+    selector     : String,
+    timestamp    : Date,
+    width        : Number,
+    height       : Number,
+    platform     : String,
+    modifications: [String]
 });
 
-exports.Event = mongoose.model('Event', eventSchema);
+
+
+eventSchema.statics.findEvents = function (queryParams, remove, cb) {
+    return this.find({
+        type        : queryParams.type,
+        platform    : queryParams.platform,
+        viewUrl     : queryParams.url,
+        $and        : [
+            { timestamp: { $gt: queryParams.startTime } },
+            { timestamp: { $lt: queryParams.endTime } }
+        ]
+    }, remove).exec(cb);
+};
+
+eventSchema.statics.findEventsWithModifications = function (queryParams, remove, cb) {
+    this.find({
+        type        : queryParams.type,
+        platform    : queryParams.platform,
+        viewUrl     : queryParams.url,
+        $and        : [
+            { timestamp: { $gt: queryParams.startTime } },
+            { timestamp: { $lt: queryParams.endTime } }
+        ],
+        modifications: {$all: queryParams.modifications}
+    }, remove).exec(cb);
+};
+
+eventSchema.statics.findEventsWithModificationsExclusive = function (queryParams, remove, cb) {
+    this.find({
+        type        : queryParams.type,
+        platform    : queryParams.platform,
+        viewUrl     : queryParams.url,
+        $and        : [
+            { timestamp: { $gt: queryParams.startTime } },
+            { timestamp: { $lt: queryParams.endTime } },
+            {modifications: {$all: queryParams.modifications}},
+            {modifications: {$size: queryParams.modifications.length}}
+        ]
+    }, remove).exec(cb);
+};
+
+var Event = mongoose.model('Event', eventSchema);
+
+exports.Event = Event;
+
