@@ -117,7 +117,6 @@ router.get('/', function(req, res, next) {
         _id         : 0,
         type        : 0,
         viewUrl     : 0,
-        platform    : 0,
         timestamp   : 0,
         width       : 0,
         height      : 0
