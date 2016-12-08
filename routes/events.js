@@ -125,7 +125,7 @@ router.get('/', function(req, res, next) {
 
     if (!params.modifications) {
         Event.findEvents(queryParams, remove, responseCb);
-    } else if (!params.modificationsExclusive) {
+    } else if (!Boolean(params.modificationsExclusive)) {
         Event.findEventsWithModifications(queryParams, remove, responseCb);
     } else {
         Event.findEventsWithModificationsExclusive(queryParams, remove, responseCb);
