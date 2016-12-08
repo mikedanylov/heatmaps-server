@@ -125,10 +125,10 @@ router.get('/', function(req, res, next) {
 
     if (!params.modifications) {
         Event.findEvents(queryParams, remove, responseCb);
-    } else if (!Boolean(params.modificationsExclusive)) {
-        Event.findEventsWithModifications(queryParams, remove, responseCb);
-    } else {
+    } else if (params.modificationsExclusive === 'true') {
         Event.findEventsWithModificationsExclusive(queryParams, remove, responseCb);
+    } else {
+        Event.findEventsWithModifications(queryParams, remove, responseCb);
     }
 
     function responseCb (err, objects) {
